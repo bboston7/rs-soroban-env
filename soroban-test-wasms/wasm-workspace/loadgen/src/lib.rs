@@ -13,17 +13,23 @@ impl Contract {
         guest_cycles: u64,
         host_cycles: u64,
         num_write_entries: u32,
-        size_kilo_bytes: u32,
+        size_bytes: u32,
     ) -> U256 {
-        if size_kilo_bytes == 0 && num_write_entries != 0 {
-            panic!("size_kilo_bytes must be greater than 0");
+        if size_bytes == 0 && num_write_entries != 0 {
+            panic!("size_bytes must be greater than 0");
         }
 
         let mut slice = [0_u8; 1024];
         e.prng().fill(&mut slice);
         let mut bytes = Bytes::new(&e);
+        let size_kilo_bytes = size_bytes / 1024;
         for _ in 0..size_kilo_bytes {
             bytes.extend_from_slice(&slice);
+        }
+        let remainder = size_bytes % 1024;
+        if remainder > 0 {
+            // TODO: Does this need the "as usize" cast?
+            bytes.extend_from_slice(&slice[0..remainder as usize]);
         }
 
         for i in 0..num_write_entries {
