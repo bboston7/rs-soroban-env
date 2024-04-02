@@ -85,8 +85,8 @@ rustversion = "1.0"
 
 [dev-dependencies.stellar-xdr]
 version = "=20.1.0"
-git = "https://github.com/stellar/rs-stellar-xdr"
-rev = "2e0f7f7d42fcd6c3c42eb0d65570fba9f5193d7e"
+git = "https://github.com/bboston7/rs-stellar-xdr"
+rev = "9106cf33acfcb02829218363f84fe47bae63971a"
 default-features = false
 features = ["arbitrary"]
 
